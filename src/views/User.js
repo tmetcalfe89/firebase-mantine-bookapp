@@ -1,4 +1,4 @@
-import { LoadingOverlay, Stack } from "@mantine/core";
+import { Stack } from "@mantine/core";
 import { Route, Routes } from "react-router-dom";
 import Navbar from "components/Navbar";
 import SideNavButton from "components/SideNavButton";

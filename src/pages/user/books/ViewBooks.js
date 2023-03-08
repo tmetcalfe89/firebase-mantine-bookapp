@@ -1,4 +1,4 @@
-import { Button, Flex, Group, Image, Skeleton, Tooltip } from "@mantine/core";
+import { Button, Group, Image, Tooltip } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 export default function ViewBooks({ books }) {
