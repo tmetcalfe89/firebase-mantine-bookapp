@@ -11,7 +11,7 @@ const searchBooks = async (query) => {
     .map((book) => ({
       title: book.volumeInfo.title,
       author: book.volumeInfo.authors?.join(", "),
-      image: book.volumeInfo.imageLinks?.thumbnail,
+      image: book.volumeInfo.imageLinks?.thumbnail.replace("&edge=curl", ""),
     }))
     .filter(({ title, author, image }) => title && author && image);
 };

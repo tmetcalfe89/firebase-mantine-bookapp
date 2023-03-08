@@ -1,4 +1,4 @@
-import { Stack, Tabs } from "@mantine/core";
+import { Tabs } from "@mantine/core";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BookForm from "./BookForm";
