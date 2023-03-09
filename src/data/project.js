@@ -1,6 +1,6 @@
 const project = {
   name: "My Books",
-  logo: "https://tabler-icons.io/static/tabler-icons/icons/book.svg",
+  logo: "/favicon.svg",
 };
 
 export default project;

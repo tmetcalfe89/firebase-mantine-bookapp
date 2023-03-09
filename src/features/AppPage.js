@@ -4,7 +4,12 @@ import colorSchemes from "data/colorSchemes";
 import dims from "data/dims";
 import project from "data/project";
 
-export default function AppPage({ loading, children, ...props }) {
+export default function AppPage({
+  loading,
+  children,
+  logoColorScheme = false,
+  ...props
+}) {
   const { colorScheme } = useMantineColorScheme();
   return (
     <Page
@@ -15,7 +20,9 @@ export default function AppPage({ loading, children, ...props }) {
           fit="contain"
           src={project.logo}
           style={{
-            filter: `invert(${colorScheme === colorSchemes.dark.name ? 1 : 0})`,
+            filter: logoColorScheme
+              ? `invert(${colorScheme === colorSchemes.dark.name ? 1 : 0})`
+              : undefined,
           }}
         />
       }
