@@ -24,21 +24,25 @@ export default function SearchBooks({ onSelect }) {
     },
   });
 
-  const handleSearch = useCallback(async () => {
-    setSearchResults(await searchBooks(form.values.searchTerm));
-    form.onReset();
-  }, [form]);
+  const handleSearch = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setSearchResults(await searchBooks(form.values.searchTerm));
+      form.onReset();
+    },
+    [form]
+  );
 
   return (
     <Stack>
-      <Group align="flex-end">
+      <Group align="flex-end" component="form" onSubmit={handleSearch}>
         <TextInput
           label="Search Term"
           description="What are you looking for?"
           {...form.getInputProps("searchTerm")}
           style={{ flexGrow: 1 }}
         />
-        <Button onClick={handleSearch}>Search Google Books</Button>
+        <Button type="submit">Search Google Books</Button>
       </Group>
       <Group position="center">
         {searchResults.map((book) => (
