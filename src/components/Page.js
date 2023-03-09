@@ -16,6 +16,8 @@ import dims from "data/dims";
 import colorSchemes from "data/colorSchemes";
 import project from "data/project";
 import useBoolean from "hooks/useBoolean";
+import { Link } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 
 export default function Page({ sideNav, topNav, logo, children }) {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -23,6 +25,7 @@ export default function Page({ sideNav, topNav, logo, children }) {
     displayPrivacyPolicy,
     { on: showPrivacyPolicy, off: hidePrivacyPolicy },
   ] = useBoolean(false);
+  const theme = useTheme();
 
   return (
     <>
@@ -43,9 +46,19 @@ export default function Page({ sideNav, topNav, logo, children }) {
               px={dims.headerPadding}
               position="apart"
             >
-              <Group>
-                <span>{logo}</span>
-                <span>{project.name}</span>
+              <Group
+                component={Link}
+                to="/"
+                sx={{
+                  textDecoration: "none",
+                  color:
+                    colorScheme === colorSchemes.dark.name
+                      ? theme.white
+                      : theme.black,
+                }}
+              >
+                {logo}
+                <Text>{project.name}</Text>
               </Group>
               <Group>
                 {topNav}

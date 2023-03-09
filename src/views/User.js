@@ -20,6 +20,7 @@ export default function User({ user }) {
       loading={loading}
     >
       <Routes>
+        <Route path="/" element={<ViewBooks books={books} />} />
         <Route path="/books" element={<ViewBooks books={books} />} />
         <Route
           path="/books/create"
