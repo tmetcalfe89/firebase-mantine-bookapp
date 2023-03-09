@@ -1,6 +1,7 @@
 import AppWrapper from "components/AppWrapper";
+import { useMemo } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
 import { auth } from "./api/firebase";
 import Loading from "./views/Loading";
 import Public from "./views/Public";
@@ -21,11 +22,16 @@ function App() {
 }
 
 export default function WrappedApp() {
+  const Router = useMemo(
+    () => (process.env.NODE_ENV === "development" ? BrowserRouter : HashRouter),
+    []
+  );
+
   return (
-    <BrowserRouter>
+    <Router>
       <AppWrapper>
         <App />
       </AppWrapper>
-    </BrowserRouter>
+    </Router>
   );
 }
