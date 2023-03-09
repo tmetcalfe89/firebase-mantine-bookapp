@@ -1,6 +1,5 @@
 import { Stack } from "@mantine/core";
 import { Route, Routes } from "react-router-dom";
-import Navbar from "components/Navbar";
 import SideNavButton from "components/SideNavButton";
 import UserAppPage from "features/UserAppPage";
 import useFirestore from "hooks/useFirestore";
@@ -39,13 +38,9 @@ export default function User({ user }) {
 
 function SideNav() {
   return (
-    <>
-      <Navbar.Section grow={1}>
-        <Stack spacing={0}>
-          <SideNavButton to="/books">Your Library</SideNavButton>
-          <SideNavButton to="/books/create">Add a Book</SideNavButton>
-        </Stack>
-      </Navbar.Section>
-    </>
+    <Stack spacing={0}>
+      <SideNavButton to="/books">Your Library</SideNavButton>
+      <SideNavButton to="/books/create">Add a Book</SideNavButton>
+    </Stack>
   );
 }

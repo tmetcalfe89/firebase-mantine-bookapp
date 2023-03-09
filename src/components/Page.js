@@ -30,7 +30,7 @@ export default function Page({ sideNav, topNav, logo, children }) {
         padding={dims.appPadding}
         navbar={
           <Navbar>
-            {sideNav}
+            <Navbar.Section grow>{sideNav}</Navbar.Section>
             <Navbar.Section p="xs">
               <Anchor onClick={showPrivacyPolicy}>Privacy Policy</Anchor>
             </Navbar.Section>
