@@ -5,7 +5,17 @@ import ActionIcon from "components/ActionIcon";
 import AppPage from "./AppPage";
 
 export default function UserAppPage({ topNav, user, ...props }) {
-  return <AppPage topNav={[topNav, <UserTopNav user={user} />]} {...props} />;
+  return (
+    <AppPage
+      topNav={
+        <>
+          {topNav}
+          <UserTopNav user={user} />
+        </>
+      }
+      {...props}
+    />
+  );
 }
 
 function UserTopNav({ user }) {

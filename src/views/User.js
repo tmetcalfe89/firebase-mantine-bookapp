@@ -39,13 +39,13 @@ export default function User({ user }) {
 
 function SideNav() {
   return (
-    <Navbar>
+    <>
       <Navbar.Section grow={1}>
         <Stack spacing={0}>
           <SideNavButton to="/books">Your Library</SideNavButton>
           <SideNavButton to="/books/create">Add a Book</SideNavButton>
         </Stack>
       </Navbar.Section>
-    </Navbar>
+    </>
   );
 }
