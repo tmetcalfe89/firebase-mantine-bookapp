@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/firebase-mantine-bookapp/static/js/main.362b098d.js",
+    "main.js": "/firebase-mantine-bookapp/static/js/main.30b2e707.js",
     "index.html": "/firebase-mantine-bookapp/index.html",
-    "main.362b098d.js.map": "/firebase-mantine-bookapp/static/js/main.362b098d.js.map"
+    "main.30b2e707.js.map": "/firebase-mantine-bookapp/static/js/main.30b2e707.js.map"
   },
   "entrypoints": [
-    "static/js/main.362b098d.js"
+    "static/js/main.30b2e707.js"
   ]
 }
