@@ -9,27 +9,21 @@ import { useContext } from "react";
 import { UserContext } from "context/UserContext";
 
 export default function User() {
-  const { user, books, loading, addBook, updateBook, removeBook } =
+  const { user, loading, addBook, updateBook, removeBook } =
     useContext(UserContext);
 
   return (
-    <UserAppPage
-      user={user}
-      sideNav={<SideNav books={books} />}
-      loading={loading}
-    >
+    <UserAppPage user={user} sideNav={<SideNav />} loading={loading}>
       <Routes>
-        <Route path="/" element={<ViewBooks books={books} />} />
-        <Route path="/books" element={<ViewBooks books={books} />} />
+        <Route path="/" element={<ViewBooks />} />
+        <Route path="/books" element={<ViewBooks />} />
         <Route
           path="/books/create"
           element={<CreateBook onCreate={addBook} />}
         />
         <Route
           path="/books/edit/:bookId"
-          element={
-            <EditBook books={books} onSave={updateBook} onRemove={removeBook} />
-          }
+          element={<EditBook onSave={updateBook} onRemove={removeBook} />}
         />
       </Routes>
     </UserAppPage>

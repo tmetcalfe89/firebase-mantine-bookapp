@@ -4,7 +4,7 @@ import {
   IconFileInvoice,
 } from "@tabler/icons-react";
 
-const categories = [
+const statuses = [
   {
     icon: <IconFileCheck />,
     label: "Read",
@@ -31,9 +31,13 @@ const categories = [
   },
 ];
 
-function getCategoryByName(categoryName) {
-  return categories.find((cat) => cat.label === categoryName);
+const statusSortingOrder = statuses
+  .sort(({ ordinal: a }, { ordinal: b }) => a - b)
+  .map(({ label }) => label);
+
+function getStatusByName(statusName) {
+  return statuses.find((cat) => cat.label === statusName);
 }
 
-export default categories;
-export { getCategoryByName };
+export default statuses;
+export { getStatusByName, statusSortingOrder };
