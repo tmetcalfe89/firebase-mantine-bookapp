@@ -1,4 +1,4 @@
-import { Box, Button, Select, Stack, TextInput } from "@mantine/core";
+import { Box, Button, Select, Stack, Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Option from "components/Option";
 import categories from "data/statuses";
@@ -9,6 +9,7 @@ const defaultBook = {
   author: "",
   image: "",
   status: "",
+  thoughts: "",
 };
 
 export default function BookForm({ onSubmit, book, submitText }) {
@@ -53,6 +54,13 @@ export default function BookForm({ onSubmit, book, submitText }) {
           itemComponent={Option}
           {...form.getInputProps("status")}
         />
+        {form.values.status === "Read" && (
+          <Textarea
+            label="Thoughts"
+            description="What are your thoughts on the book?"
+            {...form.getInputProps("thoughts")}
+          />
+        )}
         <Button type="submit">{submitText}</Button>
       </Stack>
     </Box>
