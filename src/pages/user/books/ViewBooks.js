@@ -1,13 +1,25 @@
-import { Button, Group, Image, Tooltip } from "@mantine/core";
+import { Button, Group, Image, Indicator, Tooltip } from "@mantine/core";
+import { getCategoryByName } from "data/categories";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 
 export default function ViewBooks({ books }) {
+  const sortedBooks = useMemo(() => {
+    return books.sort(
+      (a, b) =>
+        getCategoryByName(a.status).ordinal -
+        getCategoryByName(b.status).ordinal
+    );
+  }, [books]);
+
   return (
     <Group align="flex-end">
-      {books.map((book) => (
+      {sortedBooks.map((book) => (
         <Link to={`/books/edit/${book.id}`}>
           <Tooltip label={`${book.title} by ${book.author}`} position="bottom">
-            <Image src={book.image} maw={250} />
+            <Indicator color={getCategoryByName(book.status).color}>
+              <Image src={book.image} maw={250} />
+            </Indicator>
           </Tooltip>
         </Link>
       ))}
