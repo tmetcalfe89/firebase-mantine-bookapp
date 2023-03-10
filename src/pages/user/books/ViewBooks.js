@@ -2,13 +2,13 @@ import {
   Button,
   Group,
   Image,
-  Indicator,
   Select,
   Stack,
   Text,
   Title,
   Tooltip,
 } from "@mantine/core";
+import Indicator from "components/Indicator";
 import { UserContext } from "context/UserContext";
 import sortCategories from "data/sortCategories";
 import { getStatusByName } from "data/statuses";
