@@ -2,16 +2,15 @@ import { Stack } from "@mantine/core";
 import { Route, Routes } from "react-router-dom";
 import SideNavButton from "components/SideNavButton";
 import UserAppPage from "features/UserAppPage";
-import useFirestore from "hooks/useFirestore";
 import CreateBook from "pages/user/books/CreateBook";
 import ViewBooks from "pages/user/books/ViewBooks";
 import EditBook from "pages/user/books/EditBook";
+import { useContext } from "react";
+import { UserContext } from "context/UserContext";
 
-export default function User({ user }) {
-  const [
-    books,
-    { add: addBook, updateEntry: updateBook, removeById: removeBook, loading },
-  ] = useFirestore("books");
+export default function User() {
+  const { user, books, loading, addBook, updateBook, removeBook } =
+    useContext(UserContext);
 
   return (
     <UserAppPage
