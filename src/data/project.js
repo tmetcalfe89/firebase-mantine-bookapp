@@ -1,6 +1,8 @@
+import logo from "../assets/logo.svg";
+
 const project = {
   name: "My Books",
-  logo: process.env.NODE_ENV === "development" ? "/favicon.svg" : "favicon.svg",
+  logo,
 };
 
 export default project;
