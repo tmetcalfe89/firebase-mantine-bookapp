@@ -1,39 +1,113 @@
-import { Button, Group, Image, Indicator, Tooltip } from "@mantine/core";
-import { getCategoryByName } from "data/categories";
-import { useMemo } from "react";
+import {
+  Button,
+  Group,
+  Image,
+  Indicator,
+  Select,
+  Stack,
+  Text,
+  Title,
+  Tooltip,
+} from "@mantine/core";
+import { UserContext } from "context/UserContext";
+import sortCategories from "data/sortCategories";
+import { getStatusByName } from "data/statuses";
+import { useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { capitalizeWords } from "util/stringUtil";
 
-export default function ViewBooks({ books }) {
+const categories = Object.entries(sortCategories).map(
+  ([name, { prettyName }]) => ({
+    label: prettyName || capitalizeWords(name),
+    value: name,
+  })
+);
+
+export default function ViewBooks() {
+  const { books, categorizeBooksBy, bookCategory, categorizedBooks } =
+    useContext(UserContext);
+
   const sortedBooks = useMemo(() => {
     return books.sort(
       (a, b) =>
-        getCategoryByName(a.status).ordinal -
-        getCategoryByName(b.status).ordinal
+        getStatusByName(a.status).ordinal - getStatusByName(b.status).ordinal
     );
   }, [books]);
 
+  const sortedCategoryList = useMemo(() => {
+    if (!bookCategory) return null;
+    return (
+      sortCategories[bookCategory].sortOrder ||
+      [...new Set(books.map((book) => book[bookCategory]))].sort()
+    );
+  }, [bookCategory, books]);
+
   return (
-    <Group align="flex-end">
-      {sortedBooks.map((book) => (
-        <Link to={`/books/edit/${book.id}`}>
-          <Tooltip label={`${book.title} by ${book.author}`} position="bottom">
-            <Indicator color={getCategoryByName(book.status).color}>
-              <Image src={book.image} maw={250} />
-            </Indicator>
-          </Tooltip>
-        </Link>
-      ))}
-      <Button
-        component={Link}
-        to="/books/create"
-        style={{
-          alignSelf: "stretch",
-          height: "initial",
-          minHeight: "2.25rem",
-        }}
-      >
-        Add a Book
-      </Button>
-    </Group>
+    <Stack>
+      <Group>
+        <Text>Group books by:</Text>
+        <Select
+          data={[{ label: "No Sorting", value: null }, ...categories]}
+          onChange={categorizeBooksBy}
+          value={bookCategory}
+        />
+      </Group>
+      <Group align="flex-end">
+        {bookCategory ? (
+          <Stack>
+            {sortedCategoryList.map((categoryName) => (
+              <Stack>
+                <Group>
+                  <Title>{categoryName}</Title>
+                  <Button component={Link} to="/books/create">
+                    Add a Book
+                  </Button>
+                </Group>
+                <Group>
+                  {categorizedBooks[categoryName]?.map((book) => (
+                    <BookCard {...book} key={book.id} />
+                  )) || (
+                    <Text>
+                      No books in this category yet. Add one with the button
+                      next to the category name.
+                    </Text>
+                  )}
+                </Group>
+              </Stack>
+            ))}
+          </Stack>
+        ) : (
+          <>
+            {sortedBooks.map((book) => (
+              <BookCard {...book} key={book.id} />
+            ))}
+            <Button
+              component={Link}
+              to="/books/create"
+              style={{
+                alignSelf: "stretch",
+                height: "initial",
+                minHeight: "2.25rem",
+              }}
+            >
+              Add a Book
+            </Button>
+          </>
+        )}
+        {/*  */}
+      </Group>
+    </Stack>
+  );
+}
+
+function BookCard({ id, title, author, status, image }) {
+  return (
+    <Link to={`/books/edit/${id}`}>
+      <Tooltip label={`${title} by ${author}`} position="bottom">
+        <Indicator color={getStatusByName(status).color}>
+          <Image src={image} maw={250} />
+        </Indicator>
+      </Tooltip>
+    </Link>
   );
 }

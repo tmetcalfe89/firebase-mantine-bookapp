@@ -1,5 +1,5 @@
 import { auth } from "api/firebase";
-import useFirestore from "hooks/useFirestore";
+import useBooks from "hooks/useBooks";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const { createContext, useEffect } = require("react");
@@ -8,16 +8,17 @@ const UserContext = createContext();
 
 export default function UserProvider({ children }) {
   const [user, loadingUser] = useAuthState(auth);
-  const [
+  const {
     books,
-    {
-      add: addBook,
-      updateEntry: updateBook,
-      removeById: removeBook,
-      loading: loadingBooks,
-      fetchRemote: fetchBooks,
-    },
-  ] = useFirestore("books");
+    addBook,
+    updateBook,
+    fetchBooks,
+    removeBook,
+    loadingBooks,
+    bookCategory,
+    categorizeBooksBy,
+    categorizedBooks,
+  } = useBooks();
 
   useEffect(() => {
     console.log(user);
@@ -35,6 +36,9 @@ export default function UserProvider({ children }) {
         updateBook,
         removeBook,
         loading: loadingUser || loadingBooks,
+        bookCategory,
+        categorizeBooksBy,
+        categorizedBooks,
       }}
     >
       {children}

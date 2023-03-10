@@ -1,20 +1,22 @@
 import { Tabs } from "@mantine/core";
-import { useCallback, useState } from "react";
+import { UserContext } from "context/UserContext";
+import { useCallback, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BookForm from "./BookForm";
 import SearchBooks from "./SearchBooks";
 
-export default function CreateBook({ onCreate }) {
+export default function CreateBook() {
+  const { addBook } = useContext(UserContext);
   const navigate = useNavigate();
   const [selectedBook, setSelectedBook] = useState(undefined);
   const [currentTab, setCurrentTab] = useState("builder");
 
   const handleSubmit = useCallback(
     (newBook) => {
-      onCreate(newBook);
+      addBook(newBook);
       navigate("/books");
     },
-    [onCreate, navigate]
+    [addBook, navigate]
   );
 
   const handleSelectBook = useCallback((bookData) => {

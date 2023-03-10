@@ -1,9 +1,11 @@
 import { Button, Stack } from "@mantine/core";
-import { useCallback, useMemo } from "react";
+import { UserContext } from "context/UserContext";
+import { useCallback, useContext, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BookForm from "./BookForm";
 
-export default function EditBook({ books, onSave, onRemove }) {
+export default function EditBook() {
+  const { books, removeBook, updateBook } = useContext(UserContext);
   const { bookId } = useParams();
   const navigate = useNavigate();
 
@@ -12,15 +14,15 @@ export default function EditBook({ books, onSave, onRemove }) {
   }, [books, bookId]);
 
   const handleRemoveBook = useCallback(() => {
-    onRemove(bookId);
+    removeBook(bookId);
     navigate("/books");
-  }, [onRemove, navigate, bookId]);
+  }, [removeBook, navigate, bookId]);
 
   return (
     <Stack>
       <BookForm
         book={selectedBook}
-        onSubmit={(newData) => onSave(bookId, newData)}
+        onSubmit={(newData) => updateBook(bookId, newData)}
         submitText="Save Book Data"
       />
       <Button onClick={handleRemoveBook} color="red">

@@ -1,7 +1,7 @@
 import { Box, Button, Select, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Option from "components/Option";
-import categories from "data/categories";
+import categories from "data/statuses";
 import { useCallback, useEffect } from "react";
 
 const defaultBook = {
