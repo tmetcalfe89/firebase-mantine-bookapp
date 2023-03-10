@@ -15,6 +15,7 @@ import { getStatusByName } from "data/statuses";
 import { useContext, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { capitalizeWords } from "util/stringUtil";
+import { createUrl } from "util/urlUtil";
 
 const categories = Object.entries(sortCategories).map(
   ([name, { prettyName }]) => ({
@@ -58,10 +59,22 @@ export default function ViewBooks() {
             {sortedCategoryList.map((categoryName) => (
               <Stack>
                 <Group>
-                  <Title>{categoryName}</Title>
-                  <Button component={Link} to="/books/create">
-                    Add a Book
-                  </Button>
+                  <Title>
+                    {categoryName} (
+                    {categorizedBooks[categoryName]?.length || "None"})
+                  </Title>
+                  <Tooltip label={`Add a book in ${categoryName}`}>
+                    <Button
+                      component={Link}
+                      to={createUrl("/books/create", {
+                        query: {
+                          [bookCategory]: categoryName,
+                        },
+                      })}
+                    >
+                      Add a Book
+                    </Button>
+                  </Tooltip>
                 </Group>
                 <Group>
                   {categorizedBooks[categoryName]?.map((book) => (

@@ -1,7 +1,7 @@
 import { Tabs } from "@mantine/core";
 import { UserContext } from "context/UserContext";
-import { useCallback, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useCallback, useContext, useMemo, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import BookForm from "./BookForm";
 import SearchBooks from "./SearchBooks";
 
@@ -10,6 +10,13 @@ export default function CreateBook() {
   const navigate = useNavigate();
   const [selectedBook, setSelectedBook] = useState(undefined);
   const [currentTab, setCurrentTab] = useState("builder");
+  const [searchParams] = useSearchParams();
+
+  const searchParamsBook = useMemo(() => {
+    const { author, status } = Object.fromEntries(searchParams.entries());
+    if (!author && !status) return null;
+    return { author, status };
+  }, [searchParams]);
 
   const handleSubmit = useCallback(
     (newBook) => {
@@ -34,7 +41,7 @@ export default function CreateBook() {
       <Tabs.Panel value="builder">
         <BookForm
           onSubmit={handleSubmit}
-          book={selectedBook}
+          book={selectedBook || searchParamsBook}
           submitText="Add Book"
         />
       </Tabs.Panel>
