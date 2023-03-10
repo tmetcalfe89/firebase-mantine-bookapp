@@ -1,16 +1,15 @@
 import AppWrapper from "components/AppWrapper";
-import { useMemo } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import UserProvider, { UserContext } from "context/UserContext";
+import { useContext, useMemo } from "react";
 import { BrowserRouter, HashRouter } from "react-router-dom";
-import { auth } from "./api/firebase";
 import Loading from "./views/Loading";
 import Public from "./views/Public";
 import User from "./views/User";
 
 function App() {
-  const [user, loadingUser] = useAuthState(auth);
+  const { user, loading } = useContext(UserContext);
 
-  if (loadingUser) {
+  if (loading) {
     return <Loading />;
   }
 
@@ -18,7 +17,7 @@ function App() {
     return <Public />;
   }
 
-  return <User user={user} />;
+  return <User />;
 }
 
 export default function WrappedApp() {
@@ -29,9 +28,11 @@ export default function WrappedApp() {
 
   return (
     <Router>
-      <AppWrapper>
-        <App />
-      </AppWrapper>
+      <UserProvider>
+        <AppWrapper>
+          <App />
+        </AppWrapper>
+      </UserProvider>
     </Router>
   );
 }

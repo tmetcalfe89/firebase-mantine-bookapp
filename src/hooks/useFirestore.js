@@ -6,14 +6,13 @@ import {
   removeEntryById as removeRemoteEntryById,
   updateEntry as updateRemoteEntry,
 } from "api/firebase";
-import { useMount } from "react-use";
 import useBoolean from "./useBoolean";
 
 export default function useFirestore(collection, generalRules = []) {
   const [entries, updateEntries] = useSetState({});
   const [loading, { on: setLoading, off: setLoadingDone }] = useBoolean(true);
 
-  const update = useCallback(async () => {
+  const fetchRemote = useCallback(async () => {
     setLoading();
     const docs = await getRemoteEntries(collection, generalRules);
     updateEntries(
@@ -63,14 +62,10 @@ export default function useFirestore(collection, generalRules = []) {
     );
   }, [entries]);
 
-  useMount(() => {
-    update();
-  });
-
   return [
     externalEntries,
     {
-      update,
+      fetchRemote,
       add,
       removeById,
       updateEntry,
