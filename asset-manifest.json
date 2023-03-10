@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.js": "/firebase-mantine-bookapp/static/js/main.1e229837.js",
+    "main.js": "/firebase-mantine-bookapp/static/js/main.4a2de0c3.js",
+    "static/media/logo.svg": "/firebase-mantine-bookapp/static/media/logo.014b9ada84d5fd29d4685ad01c31c3ef.svg",
     "index.html": "/firebase-mantine-bookapp/index.html",
-    "main.1e229837.js.map": "/firebase-mantine-bookapp/static/js/main.1e229837.js.map"
+    "main.4a2de0c3.js.map": "/firebase-mantine-bookapp/static/js/main.4a2de0c3.js.map"
   },
   "entrypoints": [
-    "static/js/main.1e229837.js"
+    "static/js/main.4a2de0c3.js"
   ]
 }
