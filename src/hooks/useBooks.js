@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import useCategories from "./useCategories";
 import useFirestore from "./useFirestore";
 
@@ -16,8 +16,12 @@ export default function useBooks() {
   const [category, setCategory] = useState(null);
   const categorizedBooks = useCategories(books, category);
 
+  const internalBooks = useMemo(() => {
+    return books.map((book) => ({ ...book, status: book.status || "Unread" }));
+  }, [books]);
+
   return {
-    books,
+    books: internalBooks,
     addBook,
     updateBook,
     removeBook,
