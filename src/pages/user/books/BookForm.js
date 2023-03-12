@@ -9,8 +9,8 @@ const defaultBook = {
   title: "",
   author: "",
   image: "",
-  started: undefined,
-  finished: undefined,
+  started: null,
+  finished: null,
   status: "",
 };
 
