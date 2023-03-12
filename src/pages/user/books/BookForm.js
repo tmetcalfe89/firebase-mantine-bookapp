@@ -1,5 +1,6 @@
-import { Box, Button, Select, Stack, TextInput } from "@mantine/core";
+import { Box, Button, Group, Select, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import DateInput from "components/DateInput";
 import Option from "components/Option";
 import categories from "data/statuses";
 import { useCallback, useEffect } from "react";
@@ -8,6 +9,8 @@ const defaultBook = {
   title: "",
   author: "",
   image: "",
+  started: undefined,
+  finished: undefined,
   status: "",
 };
 
@@ -47,6 +50,18 @@ export default function BookForm({ onSubmit, book, submitText }) {
           description="Can I have a link to an image of your new favorite book?"
           {...form.getInputProps("image")}
         />
+        <Group grow>
+          <DateInput
+            label="Started"
+            description="When did you start reading the book?"
+            {...form.getInputProps("started")}
+          />
+          <DateInput
+            label="Finished"
+            description="When did you finish reading the book?"
+            {...form.getInputProps("finished")}
+          />
+        </Group>
         <Select
           label="Status"
           data={categories}
