@@ -38,11 +38,13 @@ export default function BookForm({ onSubmit, book, submitText }) {
         <TextInput
           label="Title"
           description="What is your new favorite book called?"
+          required
           {...form.getInputProps("title")}
         />
         <TextInput
           label="Author"
           description="Who wrote your new favorite book?"
+          required
           {...form.getInputProps("author")}
         />
         <TextInput
@@ -66,6 +68,7 @@ export default function BookForm({ onSubmit, book, submitText }) {
           label="Status"
           data={categories}
           itemComponent={Option}
+          required
           {...form.getInputProps("status")}
         />
         <Button type="submit">{submitText}</Button>
