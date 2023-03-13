@@ -118,7 +118,26 @@ function BookCard({ id, title, author, status, image }) {
     <Link to={`/books/edit/${id}`}>
       <Tooltip label={`${title} by ${author}`} position="bottom">
         <Indicator color={getStatusByName(status).color}>
-          <Image src={image} maw={250} />
+          {image ? (
+            <Image src={image} width={125} />
+          ) : (
+            <svg
+              width="125"
+              height="225"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 125 225"
+              preserveAspectRatio="none"
+            >
+              <g id="holder">
+                <rect width="100%" height="100%" fill="#cccccc"></rect>
+                <g>
+                  <text text-anchor="middle" x="50%" y="50%" dy=".3em">
+                    {title}
+                  </text>
+                </g>
+              </g>
+            </svg>
+          )}
         </Indicator>
       </Tooltip>
     </Link>
