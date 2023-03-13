@@ -1,4 +1,12 @@
-import { Box, Button, Group, Select, Stack, Textarea, TextInput } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Group,
+  Select,
+  Stack,
+  Textarea,
+  TextInput,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 import DateInput from "components/DateInput";
 import Option from "components/Option";
@@ -70,6 +78,7 @@ export default function BookForm({ onSubmit, book, submitText }) {
           data={categories}
           itemComponent={Option}
           required
+          description="How far through it are you?"
           {...form.getInputProps("status")}
         />
         {form.values.status === "Read" && (
