@@ -1,6 +1,6 @@
 import { Button, Group, Image, Stack, TextInput, Tooltip } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const searchBooks = async (query) => {
   const response = await fetch(
@@ -16,7 +16,7 @@ const searchBooks = async (query) => {
     .filter(({ title, author, image }) => title && author && image);
 };
 
-export default function SearchBooks({ onSelect }) {
+export default function SearchBooks({ onSelect, searchTerm }) {
   const [searchResults, setSearchResults] = useState([]);
   const form = useForm({
     initialValues: {
@@ -26,12 +26,16 @@ export default function SearchBooks({ onSelect }) {
 
   const handleSearch = useCallback(
     async (e) => {
-      e.preventDefault();
+      e?.preventDefault();
       setSearchResults(await searchBooks(form.values.searchTerm));
-      form.onReset();
     },
-    [form]
+    [form.values.searchTerm]
   );
+
+  useEffect(() => {
+    form.setFieldValue("searchTerm", searchTerm);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm]);
 
   return (
     <Stack>
