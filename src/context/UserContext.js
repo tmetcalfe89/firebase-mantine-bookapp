@@ -21,7 +21,6 @@ export default function UserProvider({ children }) {
   } = useBooks();
 
   useEffect(() => {
-    console.log(user);
     if (!user) return;
     fetchBooks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
